@@ -1,11 +1,11 @@
-package com.stc.petlove.services.user;
+package com.stc.petlove.services.taikhoan;
 
 import com.stc.petlove.dtos.RegisterDto;
-import com.stc.petlove.dtos.user.UpdateUserDto;
+import com.stc.petlove.dtos.UpdateTaiKhoanDto;
 import com.stc.petlove.entities.TaiKhoan;
 import com.stc.petlove.exceptions.DuplicateKeyException;
 import com.stc.petlove.exceptions.NotFoundException;
-import com.stc.petlove.repositories.UserRepository;
+import com.stc.petlove.repositories.TaiKhoanRepository;
 import com.stc.petlove.utils.EnumRole;
 import com.stc.petlove.utils.PageUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -14,9 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -28,63 +26,59 @@ import java.util.Optional;
  */
 @Slf4j
 @Service
-public class UserServiceImpl implements UserService{
-    private final UserRepository userRepository;
+public class TaiKhoanServiceImpl implements TaiKhoanService {
+    private final TaiKhoanRepository taiKhoanRepository;
 
-    public UserServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public TaiKhoanServiceImpl(TaiKhoanRepository taiKhoanRepository) {
+        this.taiKhoanRepository = taiKhoanRepository;
     }
 
 
     @Override
     public Page<TaiKhoan> filter(String search, int page, int size,
                                  String sort, String column) {
-        Integer num = null;
-        if (page == num){
-            page = 0;
-        }
         Pageable pageable = PageUtils.createPageable(page, size, sort, column);
-        return userRepository.filter(search, pageable);
+        return taiKhoanRepository.findByNameContainingOrEmailContainingAllIgnoreCase(search,search, pageable);
     }
 
     @Override
     public TaiKhoan getUser(String id) {
-        return userRepository.findById(id)
+        return taiKhoanRepository.findById(id)
                 .orElseThrow(()-> new NotFoundException(String.format("User with id %s does not exist",id)));
     }
 
     @Override
     public TaiKhoan getUserByEmail(String email) {
-        return userRepository.getUser(email)
+        return taiKhoanRepository.getUser(email)
                 .orElseThrow(()-> new NotFoundException(String.format("User with email %s does not exist",email)));
     }
 
 
     @Override
-    public TaiKhoan update(String id, UpdateUserDto dto, Principal principal) {
-        Optional<TaiKhoan> taiKhoan = userRepository.findById(id);
+    public TaiKhoan update(String id, UpdateTaiKhoanDto dto, Principal principal) {
+        Optional<TaiKhoan> taiKhoan = taiKhoanRepository.findById(id);
         if(!taiKhoan.isPresent())
             throw new NotFoundException(String.format("Tài khoản có id %s không tồn tại", id));
         taiKhoan.get().setName(dto.getName());
 //        taiKhoan.get().setEmail(dto.getEmail());
         taiKhoan.get().setPassword(dto.getPassword());
         taiKhoan.get().setDienThoai(dto.getDienThoai());
-        return userRepository.save(taiKhoan.get());
+        return taiKhoanRepository.save(taiKhoan.get());
     }
 
     @Override
-    public TaiKhoan changeStatus(String id, Principal principal) {
-        Optional<TaiKhoan> taiKhoan = userRepository.findById(id);
+    public TaiKhoan changeStatus(String id) {
+        Optional<TaiKhoan> taiKhoan = taiKhoanRepository.findById(id);
         if(!taiKhoan.isPresent())
                throw new NotFoundException(String.format("Tài khoản có id %s không tồn tại", id));
         taiKhoan.get().setTrangThai(!taiKhoan.get().isTrangThai());
-        return userRepository.save(taiKhoan.get());
+        return taiKhoanRepository.save(taiKhoan.get());
     }
 
     @Override
     public TaiKhoan signup(RegisterDto registerDto) {
         TaiKhoan taiKhoan = new TaiKhoan();
-        if(userRepository.existsByEmail(registerDto.getEmail()))
+        if(taiKhoanRepository.existsByEmail(registerDto.getEmail()))
             throw new DuplicateKeyException(String.format("User có email %s đã tồn tại", registerDto.getEmail()));
         taiKhoan.setName(registerDto.getName());
         taiKhoan.setEmail(registerDto.getEmail());
@@ -92,6 +86,6 @@ public class UserServiceImpl implements UserService{
         taiKhoan.setTrangThai(true);
         taiKhoan.setPassword(registerDto.getPassword());
         taiKhoan.setDienThoai(registerDto.getDienThoai());
-        return userRepository.save(taiKhoan);
+        return taiKhoanRepository.save(taiKhoan);
     }
 }

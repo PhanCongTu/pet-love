@@ -2,7 +2,7 @@ package com.stc.petlove.securities;
 
 import com.stc.petlove.entities.TaiKhoan;
 import com.stc.petlove.exceptions.NotFoundException;
-import com.stc.petlove.repositories.UserRepository;
+import com.stc.petlove.repositories.TaiKhoanRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -22,15 +22,15 @@ import java.util.stream.Collectors;
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
-    private final UserRepository userRepository;
+    private final TaiKhoanRepository taiKhoanRepository;
 
-    public CustomUserDetailsService(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public CustomUserDetailsService(TaiKhoanRepository taiKhoanRepository) {
+        this.taiKhoanRepository = taiKhoanRepository;
     }
 
     @Override
     public JwtUserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        TaiKhoan user = userRepository.getUser(email).orElseThrow(() ->
+        TaiKhoan user = taiKhoanRepository.getUser(email).orElseThrow(() ->
                 new UsernameNotFoundException(String.format("Tài khoản có email %s không tồn tại", email)));
         if (!user.isTrangThai())
             throw new NotFoundException(String.format("Tài khoản có email %s đã bị vô hiệu hóa", email));

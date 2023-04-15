@@ -1,4 +1,4 @@
-package com.stc.petlove.dtos.user;
+package com.stc.petlove.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UpdateUserDto {
+public class UpdateTaiKhoanDto {
     private String name;
 
     private String password;

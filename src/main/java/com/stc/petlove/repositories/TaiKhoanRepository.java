@@ -16,7 +16,7 @@ import java.util.Optional;
  * Time      : 8:49 AM
  * Filename  : UserRepository
  */
-public interface UserRepository extends MongoRepository<TaiKhoan, String> {
+public interface TaiKhoanRepository extends MongoRepository<TaiKhoan, String> {
 
     Optional<TaiKhoan> findByEmail(String email);
 
@@ -37,4 +37,6 @@ public interface UserRepository extends MongoRepository<TaiKhoan, String> {
     @Query(value = "{$or: [ {'name': ?0}, {'email': ?0}]}",
             sort = "{'trangThai': -1, 'name': 1}")
     Page<TaiKhoan> filter(String search, Pageable pageable);
+
+    Page<TaiKhoan> findByNameContainingOrEmailContainingAllIgnoreCase(String name,String email, Pageable pageable);
 }

@@ -1,5 +1,6 @@
 package com.stc.petlove.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.stc.petlove.entities.embedded.ThongTinDatCho;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -34,6 +35,7 @@ public class DatCho {
     private List<ThongTinDatCho> thongTinDatChos = new ArrayList<>();
 
     // Thời gian chăm sóc thú cưng
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy HH:mm")
     private Date thoiGian;
 
     // căn dặn khi chăm sóc thú cưng

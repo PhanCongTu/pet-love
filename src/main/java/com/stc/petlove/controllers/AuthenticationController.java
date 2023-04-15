@@ -10,7 +10,7 @@ import com.stc.petlove.securities.CustomUserDetailsService;
 import com.stc.petlove.securities.JwtTokenUtils;
 import com.stc.petlove.securities.JwtUserDetails;
 import com.stc.petlove.securities.UserAuthenticationToken;
-import com.stc.petlove.services.user.UserService;
+import com.stc.petlove.services.taikhoan.TaiKhoanService;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -43,7 +43,7 @@ public class AuthenticationController {
 
     private final JwtTokenUtils jwtTokenUtils;
 
-    private final UserService userService;
+    private final TaiKhoanService taiKhoanService;
 
 //    public AuthenticationController(AuthenticationManager authenticationManager, CustomUserDetailsService customUserDetailsService,
 //                                    JwtTokenUtils jwtTokenUtils) {
@@ -54,7 +54,7 @@ public class AuthenticationController {
 
     @PostMapping("/signup")
     public ResponseEntity<TaiKhoan> signup(@Valid @RequestBody RegisterDto registerDto){
-        return new ResponseEntity<>(userService.signup(registerDto), HttpStatus.CREATED);
+        return new ResponseEntity<>(taiKhoanService.signup(registerDto), HttpStatus.CREATED);
     }
 
     @ApiOperation(value = "login form (username, password), avatar null")

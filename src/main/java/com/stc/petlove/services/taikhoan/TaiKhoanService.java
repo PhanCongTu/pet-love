@@ -1,12 +1,11 @@
-package com.stc.petlove.services.user;
+package com.stc.petlove.services.taikhoan;
 
 import com.stc.petlove.dtos.RegisterDto;
-import com.stc.petlove.dtos.user.UpdateUserDto;
+import com.stc.petlove.dtos.UpdateTaiKhoanDto;
 import com.stc.petlove.entities.TaiKhoan;
 import org.springframework.data.domain.Page;
 
 import java.security.Principal;
-import java.util.List;
 
 /**
  * Created by: IntelliJ IDEA
@@ -15,7 +14,7 @@ import java.util.List;
  * Time      : 9:01 AM
  * Filename  : UserService
  */
-public interface UserService {
+public interface TaiKhoanService {
 
     Page<TaiKhoan> filter(String search,
                       int page, int size, String sort, String column);
@@ -24,9 +23,9 @@ public interface UserService {
 
     TaiKhoan getUserByEmail(String email);
 
-    TaiKhoan update(String id, UpdateUserDto dto, Principal principal);
+    TaiKhoan update(String id, UpdateTaiKhoanDto dto, Principal principal);
 
-    TaiKhoan changeStatus(String id, Principal principal);
+    TaiKhoan changeStatus(String id);
 
     TaiKhoan signup(RegisterDto registerDto);
 }
