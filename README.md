@@ -10,7 +10,7 @@
 
 ### Database: MongoDB
 
-***Project có sử dụng security. Chỉ đăng nhập hoặc đăng ký là không cần tài khoản.***
+***Project có sử dụng security. Chỉ đăng nhập hoặc đăng ký là không cần quyền.***
 
 > Khi chạy project sẽ tự động có 3 tài khoản.
 
