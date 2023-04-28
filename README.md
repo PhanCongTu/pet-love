@@ -2,7 +2,7 @@
 
 ## BackEnd
 
-### Đây là phần backend của project giữa kỳ môn Công nghệ phần mềm mới.
+### Đây là phần backend của project giữa kỳ môn Công nghệ phần mềm mới (chỉ có backend).
 
 ### Ngôn ngữ: Java
 
