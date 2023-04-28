@@ -6,7 +6,7 @@
 
 ### Ngôn ngữ: Java
 
-### Framework: Spring boot
+### Framework: Spring boot, Spring Security:JWT Authentication & Authorisation 
 
 ### Database: MongoDB
 
