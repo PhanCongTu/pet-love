@@ -1,14 +1,11 @@
-# pet-love
+# Website đặt lịch chăm sóc thú cưng
 
-## BackEnd
+## Đây là phần backend của project giữa kỳ môn Công nghệ phần mềm mới (chỉ có backend).
 
-### Đây là phần backend của project giữa kỳ môn Công nghệ phần mềm mới (chỉ có backend).
-
-### Ngôn ngữ: Java
-
-### Framework: Spring boot, Spring Security:JWT Authentication & Authorisation 
-
-### Database: MongoDB
+## Công nghệ sử dụng
+<b>Programming language: </b>  Java \
+<b>Framework: </b>Spring Boot, Spring Security:JWT Authentication & Authorisation \
+<b>Database: </b>MongoDB 
 
 ***Project có sử dụng security. Chỉ đăng nhập hoặc đăng ký là không cần quyền.***
 
